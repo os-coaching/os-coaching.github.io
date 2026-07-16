@@ -23,6 +23,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 
+<link rel="preload" href="/assets/img/marble.webp" as="image" type="image/webp">
 <link rel="preload" href="/assets/fonts/CabinetGrotesk-Extrabold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Switzer-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Switzer-Semibold.woff2" as="font" type="font/woff2" crossorigin>
@@ -258,6 +259,12 @@ header {
   display: flex;
   align-items: center;
   padding-block: clamp(5rem, 14vh, 9rem);
+  background-color: var(--ink);
+  background-image:
+    linear-gradient(180deg, rgba(11, 12, 14, 0.30) 0%, rgba(11, 12, 14, 0.55) 55%, rgba(20, 22, 25, 0.96) 100%),
+    url("/assets/img/marble.webp");
+  background-size: cover;
+  background-position: center;
 }
 .hero h1 {
   font-size: clamp(2.9rem, 10.5vw, 6.4rem);
@@ -812,12 +819,21 @@ footer {
         <span class="day">Monday</span>
         <p class="msg in">Week from hell — two client dinners and a full day in Leeds. Still hit all three sessions. That has genuinely never happened before.<span class="meta">07:42</span></p>
         <p class="msg out">That’s the system doing its job, not willpower. 80% done beats 100% abandoned.<span class="meta">07:48</span></p>
+        <span class="day">Tuesday</span>
+        <p class="msg in">Hotel gym was two dumbbells and a broken treadmill. Ran the backup session you sent instead. Done in 40 minutes.<span class="meta">07:15</span></p>
+        <p class="msg out">That’s the plan bending so it doesn’t break. Good week already.<span class="meta">07:31</span></p>
         <span class="day">Thursday</span>
         <p class="msg in">Honestly thought the stag do would write the whole week off. Protein target still hit, walked it off Sunday.<span class="meta">18:03</span></p>
         <p class="msg in">Down again at this morning’s weigh-in. Doesn’t feel like dieting any more, just feels like Tuesday.<span class="meta">18:04</span></p>
         <p class="msg out">No zero days. Small levers, pulled every week — that’s the whole game.<span class="meta">18:11</span></p>
+        <span class="day">Friday</span>
+        <p class="msg in">Airport day. Cleared the steps floor before the gate — turns out Heathrow is decent cardio.<span class="meta">16:42</span></p>
+        <p class="msg in">First check-in ever that hasn’t felt like a confession.<span class="meta">16:44</span></p>
         <span class="day">Saturday</span>
         <p class="msg in">Took my shirt off at the pool without thinking about it. First holiday in years I wasn’t planning around the photos.<span class="meta">11:26</span></p>
+        <span class="day">Sunday</span>
+        <p class="msg in">Meal out with the family, no menu anxiety. Logged it and moved on.<span class="meta">13:05</span></p>
+        <p class="msg out">No zero days doesn’t mean perfect days. That’s the whole point.<span class="meta">13:22</span></p>
       </div>
     </div>
   </div>
