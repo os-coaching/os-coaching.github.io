@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OS Coaching — The Echelon Method | Online coaching for busy professional men</title>
-<meta name="description" content="You don't lack discipline. You work a 9-5. Online fitness coaching for busy professional men — protein, steps, three sessions, run through a system that survives a real week. 8-week Founders Challenge, £79.">
+<title>OS Coaching — The Echelon Method | 1:1 online coaching for busy professional men</title>
+<meta name="description" content="You don't lack discipline. You work a 9-5. 1:1 online fitness coaching for busy professional men — protein, steps, three sessions, run through a system that survives a real week. Book a free intro call.">
 <link rel="canonical" href="https://os-coaching.github.io/">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="OS Coaching">
 <meta property="og:title" content="OS Coaching — The Echelon Method">
-<meta property="og:description" content="You don't lack discipline. You work a 9-5. A coaching system built around your job, your travel and your life. 8-week Founders Challenge, £79.">
+<meta property="og:description" content="You don't lack discipline. You work a 9-5. A coaching system built around your job, your travel and your life. Book a free intro call.">
 <meta property="og:url" content="https://os-coaching.github.io/">
 <meta property="og:image" content="https://os-coaching.github.io/assets/img/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="OS Coaching — The Echelon Method">
-<meta name="twitter:description" content="You don't lack discipline. You work a 9-5. Online coaching for busy professional men. 8-week Founders Challenge, £79.">
+<meta name="twitter:description" content="You don't lack discipline. You work a 9-5. 1:1 online coaching for busy professional men. Book a free intro call.">
 <meta name="twitter:image" content="https://os-coaching.github.io/assets/img/og.png">
 
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
@@ -42,7 +42,7 @@
       "logo": "https://os-coaching.github.io/assets/img/logo.webp",
       "address": { "@type": "PostalAddress", "addressRegion": "Norfolk", "addressCountry": "GB" },
       "areaServed": "Online",
-      "priceRange": "£79–£150",
+      "priceRange": "£150/month",
       "founder": { "@id": "https://os-coaching.github.io/#oliver" },
       "sameAs": [
         "https://www.instagram.com/ollieshawcoaching/",
@@ -105,6 +105,7 @@
 }
 
 :root {
+  --navh: 4.1rem;
   --ink: #0B0C0E;
   --coal: #141619;
   --line: #26292E;
@@ -221,6 +222,51 @@ a:focus-visible {
   color: var(--mist);
 }
 
+/* ---------- ghost button ---------- */
+.btn-ghost {
+  display: inline-block;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--paper);
+  text-decoration: none;
+  border: 1px solid var(--line);
+  padding: 0.95rem 1.6rem;
+  border-radius: 4px;
+  margin-left: 0.9rem;
+  transition: border-color 140ms ease, color 140ms ease;
+}
+.btn-ghost:hover { border-color: var(--blue); }
+@media (max-width: 480px) {
+  .btn-ghost { display: block; text-align: center; margin: 0.75rem 0 0; }
+}
+
+/* ---------- booking ---------- */
+.call-steps { list-style: none; counter-reset: cstep; display: grid; gap: 1px; background: var(--line); border-block: 1px solid var(--line); margin-block: 2.75rem; }
+@media (min-width: 760px) { .call-steps { grid-template-columns: repeat(3, 1fr); } }
+.call-steps li { background: var(--ink); padding: 1.6rem 0; }
+@media (min-width: 760px) {
+  .call-steps li { padding: 1.75rem 1.5rem; }
+  .call-steps li:first-child { padding-left: 0; }
+  .call-steps li:last-child { padding-right: 0; }
+}
+.call-steps li::before {
+  counter-increment: cstep;
+  content: counter(cstep, decimal-leading-zero);
+  display: block;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--blue);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.6rem;
+}
+.call-steps p { color: var(--mist); font-size: 0.95rem; max-width: none; }
+.calendly-inline-widget { border-radius: 8px; overflow: hidden; border: 1px solid var(--line); }
+.cal-fallback { display: block; margin-top: 1rem; font-size: 0.9rem; color: var(--mist); }
+.cal-fallback a { color: var(--paper); text-decoration: underline; text-underline-offset: 3px; }
+.cal-fallback a:hover { color: var(--blue); }
+
 /* ---------- header ---------- */
 header {
   border-bottom: 1px solid var(--line);
@@ -230,13 +276,43 @@ header {
   z-index: 40;
 }
 .nav {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
   align-items: center;
-  padding-block: 0.85rem;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding-block: 0.7rem;
 }
-.nav > a[href="#top"] { grid-column: 2; justify-self: center; }
-.nav .nav-cta { grid-column: 3; justify-self: end; }
+.nav-right { display: flex; align-items: center; gap: 1.5rem; }
+.navlinks { display: flex; gap: 1.35rem; }
+.navlinks a {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--mist);
+  text-decoration: none;
+  padding-block: 0.35rem;
+  border-bottom: 2px solid transparent;
+  transition: color 140ms ease, border-color 140ms ease;
+}
+.navlinks a:hover { color: var(--paper); }
+.navlinks a.active { color: var(--paper); border-bottom-color: var(--blue); }
+@media (max-width: 760px) {
+  :root { --navh: 6.4rem; }
+  .nav { flex-wrap: wrap; row-gap: 0; }
+  .nav-right { display: contents; }
+  .nav .nav-cta { margin-left: auto; white-space: nowrap; }
+  .navlinks {
+    order: 3;
+    flex-basis: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 1.1rem;
+    padding-block: 0.15rem 0.55rem;
+  }
+  .navlinks::-webkit-scrollbar { display: none; }
+  .navlinks a { white-space: nowrap; }
+}
+section[id], [id="book-a-call"] { scroll-margin-top: calc(var(--navh) + 0.5rem); }
 .nav img { display: block; }
 .nav-cta {
   font-size: 0.875rem;
@@ -692,10 +768,15 @@ footer {
     <a href="#top" aria-label="OS Coaching — top of page">
       <img src="/assets/img/logo.webp" alt="OS Coaching" width="66" height="46">
     </a>
-    <a class="nav-cta" href="https://buy.stripe.com/8x214h1h23TC9dUeKD63K0b">
-      <span class="long">Start the 8-Week Challenge — £79</span>
-      <span class="short">Start — £79</span>
-    </a>
+    <div class="nav-right">
+      <nav class="navlinks" aria-label="Sections">
+        <a href="#method">Method</a>
+        <a href="#proof">Results</a>
+        <a href="#feedback">Check-ins</a>
+        <a href="#offer">Pricing</a>
+      </nav>
+      <a class="nav-cta" href="#book-a-call">Book a Call</a>
+    </div>
   </div>
 </header>
 
@@ -707,8 +788,8 @@ footer {
     <h1 class="rise"><span class="l1">You don’t lack</span> <span class="l2"><span class="hl">discipline</span>.</span> <span class="l3">You work a <span class="hl">9-5</span>.</span></h1>
     <p class="lead rise">Protein, steps, three sessions — run through a system that survives a real week. Built around your job, your travel and your life, not a plan that assumes you have none of them.</p>
     <div class="rise">
-      <a class="btn" href="https://buy.stripe.com/8x214h1h23TC9dUeKD63K0b">Start the 8-Week Challenge — £79</a>
-      <span class="reassure">Secure checkout via Stripe. You’ll hear from me within 24 hours.</span>
+      <a class="btn" href="#book-a-call">Book Your Free Call</a><a class="btn-ghost" href="#proof">See Client Results</a>
+      <span class="reassure">Free 15-minute intro call. No pressure — we’ll talk through where you’re at and whether the Echelon Method is the right fit.</span>
     </div>
   </div>
 </section>
@@ -828,9 +909,9 @@ footer {
     </article>
 
     <div class="proof-cta reveal">
-      <p class="line">Same system. <span class="hl">£79</span> to run it for eight weeks.</p>
-      <a class="btn btn-big" href="https://buy.stripe.com/8x214h1h23TC9dUeKD63K0b">Start the 8-Week Challenge — £79</a>
-      <span class="reassure">Secure checkout via Stripe. You’ll hear from me within 24 hours.</span>
+      <p class="line">Results like these start with a <span class="hl">conversation</span>.</p>
+      <a class="btn btn-big" href="#book-a-call">Book Your Free Call</a>
+      <span class="reassure">Free 15-minute intro call. No pressure, no hard sell.</span>
     </div>
   </div>
 </section>
@@ -945,11 +1026,11 @@ footer {
         </li>
       </ul>
       <div class="price-card">
-        <span class="eyebrow">Start here — Founders Challenge</span>
-        <p class="price">£79 <small>/ 8 weeks</small></p>
-        <p class="price-note">The full system, run at low pressure, for eight weeks. If it’s working — and you’ll know by then — you roll into full coaching.</p>
-        <a class="btn" href="https://buy.stripe.com/8x214h1h23TC9dUeKD63K0b">Start the 8-Week Challenge — £79</a>
-        <p class="honesty">Full coaching is £150/month with a 3-month minimum — because real change takes longer than a fortnight, and I’d rather be honest about that here than surprise you later.</p>
+        <span class="eyebrow">The Echelon Method</span>
+        <p class="price">£150 <small>/ month</small></p>
+        <p class="price-note">Three-month minimum — because real change takes longer than a fortnight, and I’d rather be honest about that here than surprise you later.</p>
+        <a class="btn" href="#book-a-call">Book Your Free Call</a>
+        <p class="honesty">It starts with a free 15-minute call. No pressure — we’ll talk through where you’re at and whether the method is the right fit before money enters the conversation.</p>
       </div>
     </div>
   </div>
@@ -963,20 +1044,29 @@ footer {
   </div>
 </section>
 
-<section class="final" id="start">
-  <div class="wrap final-grid reveal">
-    <div>
-      <span class="eyebrow">Start here</span>
-      <h2>Stop blaming your <span class="hl">willpower</span>. Start running a system.</h2>
-      <p class="lead">8 weeks. £79. Start where the pressure’s low and the system is the same one the full programme runs on.</p>
-      <a class="btn" href="https://buy.stripe.com/8x214h1h23TC9dUeKD63K0b">Start the 8-Week Challenge — £79</a>
-      <span class="reassure">Secure checkout via Stripe. You’ll hear from me within 24 hours.</span>
-      <span class="secondary">Not ready yet? <a href="https://www.instagram.com/ollieshawcoaching/" rel="noopener">DM “LUNCH” on Instagram</a> for the free Lean Lunch Cheat Sheet.</span>
+<section class="final" id="book-a-call">
+  <div class="wrap">
+    <div class="final-grid reveal">
+      <div>
+        <span class="eyebrow">Book a call</span>
+        <h2>Stop blaming your <span class="hl">willpower</span>. Start running a system.</h2>
+        <p class="lead">A free 15-minute intro call. No pressure — we’ll talk through where you’re at and whether the Echelon Method is the right fit.</p>
+        <ol class="call-steps">
+          <li><p>Fifteen minutes, relaxed. Just a conversation about where you’re at.</p></li>
+          <li><p>I’ll tell you honestly whether the Echelon Method fits your situation.</p></li>
+          <li><p>If it fits, you’ll leave knowing what the next twelve weeks look like. If it doesn’t, you’ll still leave with a clear next step.</p></li>
+        </ol>
+      </div>
+      <figure class="coach">
+        <img src="/assets/img/oliver.webp?v=4" alt="Oliver Shaw, OS Coaching" width="840" height="1265" decoding="async">
+        <figcaption>Oliver Shaw · Norfolk, UK · Coaching online, anywhere</figcaption>
+      </figure>
     </div>
-    <figure class="coach">
-      <img src="/assets/img/oliver.webp?v=4" alt="Oliver Shaw, OS Coaching" width="840" height="1265" decoding="async">
-      <figcaption>Oliver Shaw · Norfolk, UK · Coaching online, anywhere</figcaption>
-    </figure>
+    <div class="reveal">
+      <div class="calendly-inline-widget" data-url="https://calendly.com/ollieshawcoaching/30min" style="min-width:320px;height:700px;"></div>
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      <span class="cal-fallback">Calendar not loading? <a href="https://calendly.com/ollieshawcoaching/30min" rel="noopener">Book directly on Calendly</a>.</span>
+    </div>
   </div>
 </section>
 
@@ -992,6 +1082,9 @@ footer {
       <a href="https://www.instagram.com/ollieshawcoaching/" rel="noopener" aria-label="OS Coaching on Instagram">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg>
       </a>
+      <a href="https://www.tiktok.com/@ollieshawcoaching" rel="noopener" aria-label="OS Coaching on TikTok">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+      </a>
       <a href="https://www.linkedin.com/in/oliver-shaw-coaching/" rel="noopener" aria-label="Oliver Shaw on LinkedIn">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
       </a>
@@ -1001,7 +1094,7 @@ footer {
 </footer>
 
 <div class="bar" id="bar">
-  <a class="btn" href="https://buy.stripe.com/8x214h1h23TC9dUeKD63K0b">Start the 8-Week Challenge — £79</a>
+  <a class="btn" href="#book-a-call">Book Your Free Call</a>
 </div>
 
 <script>
@@ -1024,6 +1117,25 @@ footer {
   setTimeout(function () {
     els.forEach(function (el) { el.classList.add('in'); });
   }, 1800);
+
+  // active nav link highlighting
+  var links = Array.from(document.querySelectorAll('.navlinks a'));
+  if (links.length && 'IntersectionObserver' in window) {
+    var map = {};
+    links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+    var secObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting && map[e.target.id]) {
+          links.forEach(function (a) { a.classList.remove('active'); });
+          map[e.target.id].classList.add('active');
+        }
+      });
+    }, { rootMargin: '-25% 0px -65% 0px' });
+    Object.keys(map).forEach(function (id) {
+      var s = document.getElementById(id);
+      if (s) secObs.observe(s);
+    });
+  }
 
   var bar = document.getElementById('bar');
   var hero = document.querySelector('.hero');
