@@ -225,16 +225,18 @@ a:focus-visible {
 header {
   border-bottom: 1px solid var(--line);
   background: var(--ink);
-}
-@media (min-width: 768px) {
-  header { position: sticky; top: 0; z-index: 40; }
+  position: sticky;
+  top: 0;
+  z-index: 40;
 }
 .nav {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   padding-block: 0.85rem;
 }
+.nav > a[href="#top"] { grid-column: 2; justify-self: center; }
+.nav .nav-cta { grid-column: 3; justify-self: end; }
 .nav img { display: block; }
 .nav-cta {
   font-size: 0.875rem;
@@ -410,10 +412,35 @@ header {
 }
 .proof-head { margin-bottom: 3.5rem; }
 
+/* ---------- proof CTA ---------- */
+.proof-cta {
+  margin-top: 3.5rem;
+  text-align: center;
+}
+.proof-cta .line {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(1.6rem, 3.6vw, 2.4rem);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  margin-bottom: 1.9rem;
+  max-width: none;
+}
+.btn-big {
+  font-size: clamp(1.2rem, 2.2vw, 1.35rem);
+  padding: 1.15rem 2.5rem;
+}
+
 /* ---------- check-ins (WhatsApp) ---------- */
+.chat-grid {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 3.25rem;
+  align-items: start;
+}
+@media (min-width: 880px) { .chat-grid { grid-template-columns: repeat(3, 1fr); } }
 .chat {
   max-width: 26.5rem;
-  margin-top: 3.25rem;
   background: #0E1114;
   border: 1px solid var(--line);
   border-radius: 14px;
@@ -720,6 +747,12 @@ footer {
       </div>
       <img src="/assets/img/finn.webp?v=2" alt="Finn — before and after, four weeks apart" width="1054" height="699" decoding="async">
     </article>
+
+    <div class="proof-cta reveal">
+      <p class="line">Same system. <span class="hl">£79</span> to run it for eight weeks.</p>
+      <a class="btn btn-big" href="https://buy.stripe.com/8x214h1h23TC9dUeKD63K0b">Start the 8-Week Challenge — £79</a>
+      <span class="reassure">Secure checkout via Stripe. You’ll hear from me within 24 hours.</span>
+    </div>
   </div>
 </section>
 
@@ -808,7 +841,8 @@ footer {
     <span class="eyebrow">Client feedback</span>
     <h2>Straight from the check-ins.</h2>
     <p class="lead">The wins that matter aren’t scale screenshots. They’re weeks that used to fall apart — and didn’t.</p>
-    <div class="chat">
+    <div class="chat-grid">
+    <div class="chat reveal">
       <div class="chat-head">
         <img src="/assets/img/logo.webp" alt="" width="40" height="28">
         <div>
@@ -823,6 +857,17 @@ footer {
         <span class="day">Tuesday</span>
         <p class="msg in">Hotel gym was two dumbbells and a broken treadmill. Ran the backup session you sent instead. Done in 40 minutes.<span class="meta">07:15</span></p>
         <p class="msg out">That’s the plan bending so it doesn’t break. Good week already.<span class="meta">07:31</span></p>
+      </div>
+    </div>
+    <div class="chat reveal">
+      <div class="chat-head">
+        <img src="/assets/img/logo.webp" alt="" width="40" height="28">
+        <div>
+          <p class="chat-title">OS Coaching</p>
+          <p class="chat-sub">Client check-ins · WhatsApp, 7 days a week</p>
+        </div>
+      </div>
+      <div class="thread">
         <span class="day">Thursday</span>
         <p class="msg in">Honestly thought the stag do would write the whole week off. Protein target still hit, walked it off Sunday.<span class="meta">18:03</span></p>
         <p class="msg in">Down again at this morning’s weigh-in. Doesn’t feel like dieting any more, just feels like Tuesday.<span class="meta">18:04</span></p>
@@ -830,12 +875,24 @@ footer {
         <span class="day">Friday</span>
         <p class="msg in">Airport day. Cleared the steps floor before the gate — turns out Heathrow is decent cardio.<span class="meta">16:42</span></p>
         <p class="msg in">First check-in ever that hasn’t felt like a confession.<span class="meta">16:44</span></p>
+      </div>
+    </div>
+    <div class="chat reveal">
+      <div class="chat-head">
+        <img src="/assets/img/logo.webp" alt="" width="40" height="28">
+        <div>
+          <p class="chat-title">OS Coaching</p>
+          <p class="chat-sub">Client check-ins · WhatsApp, 7 days a week</p>
+        </div>
+      </div>
+      <div class="thread">
         <span class="day">Saturday</span>
         <p class="msg in">Took my shirt off at the pool without thinking about it. First holiday in years I wasn’t planning around the photos.<span class="meta">11:26</span></p>
         <span class="day">Sunday</span>
         <p class="msg in">Meal out with the family, no menu anxiety. Logged it and moved on.<span class="meta">13:05</span></p>
         <p class="msg out">No zero days doesn’t mean perfect days. That’s the whole point.<span class="meta">13:22</span></p>
       </div>
+    </div>
     </div>
   </div>
 </section>
@@ -926,7 +983,7 @@ footer {
       <span class="secondary">Not ready yet? <a href="https://www.instagram.com/ollieshawcoaching/" rel="noopener">DM “LUNCH” on Instagram</a> for the free Lean Lunch Cheat Sheet.</span>
     </div>
     <figure class="coach">
-      <img src="/assets/img/oliver.webp?v=2" alt="Oliver Shaw, OS Coaching" width="850" height="890" decoding="async">
+      <img src="/assets/img/oliver.webp?v=3" alt="Oliver Shaw, OS Coaching" width="790" height="695" decoding="async">
       <figcaption>Oliver Shaw · Norfolk, UK · Coaching online, anywhere</figcaption>
     </figure>
   </div>
