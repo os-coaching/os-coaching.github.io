@@ -42,7 +42,6 @@
       "logo": "https://os-coaching.github.io/assets/img/logo.webp",
       "address": { "@type": "PostalAddress", "addressRegion": "Norfolk", "addressCountry": "GB" },
       "areaServed": "Online",
-      "priceRange": "£150/month",
       "founder": { "@id": "https://os-coaching.github.io/#oliver" },
       "sameAs": [
         "https://www.instagram.com/ollieshawcoaching/",
@@ -105,7 +104,7 @@
 }
 
 :root {
-  --navh: 4.1rem;
+  --navh: 8.3rem;
   --ink: #0B0C0E;
   --coal: #141619;
   --line: #26292E;
@@ -277,13 +276,21 @@ header {
 }
 .nav {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 1.25rem;
-  padding-block: 0.7rem;
+  gap: 0.6rem;
+  position: relative;
+  padding-block: 1.1rem 0.75rem;
 }
-.nav-right { display: flex; align-items: center; gap: 1.5rem; }
-.navlinks { display: flex; gap: 1.35rem; }
+.nav > a[href="#top"] img { height: 64px; width: auto; }
+.nav .nav-cta {
+  position: absolute;
+  right: 0;
+  top: 1.65rem;
+  white-space: nowrap;
+}
+.navlinks { display: flex; justify-content: center; gap: 1.6rem; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.navlinks::-webkit-scrollbar { display: none; }
 .navlinks a {
   font-size: 0.875rem;
   font-weight: 600;
@@ -296,20 +303,9 @@ header {
 .navlinks a:hover { color: var(--paper); }
 .navlinks a.active { color: var(--paper); border-bottom-color: var(--blue); }
 @media (max-width: 760px) {
-  :root { --navh: 6.4rem; }
-  .nav { flex-wrap: wrap; row-gap: 0; }
-  .nav-right { display: contents; }
-  .nav .nav-cta { margin-left: auto; white-space: nowrap; }
-  .navlinks {
-    order: 3;
-    flex-basis: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    gap: 1.1rem;
-    padding-block: 0.15rem 0.55rem;
-  }
-  .navlinks::-webkit-scrollbar { display: none; }
+  .nav > a[href="#top"] img { height: 52px; }
+  .nav .nav-cta { top: 1.45rem; }
+  .navlinks { gap: 1.15rem; justify-content: flex-start; }
   .navlinks a { white-space: nowrap; }
 }
 section[id], [id="book-a-call"] { scroll-margin-top: calc(var(--navh) + 0.5rem); }
@@ -635,6 +631,13 @@ section[id], [id="book-a-call"] { scroll-margin-top: calc(var(--navh) + 0.5rem);
 }
 .tone .price-card { background: var(--ink); }
 .price-card .eyebrow { color: var(--blue); margin-bottom: 1.75rem; }
+.price-card .card-line {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(1.7rem, 3.2vw, 2.3rem);
+  letter-spacing: -0.01em;
+  line-height: 1.12;
+}
 .price {
   font-family: var(--display);
   font-weight: 800;
@@ -766,17 +769,15 @@ footer {
 <header>
   <div class="wrap nav">
     <a href="#top" aria-label="OS Coaching — top of page">
-      <img src="/assets/img/logo.webp" alt="OS Coaching" width="66" height="46">
+      <img src="/assets/img/logo.webp" alt="OS Coaching" width="92" height="64">
     </a>
-    <div class="nav-right">
-      <nav class="navlinks" aria-label="Sections">
-        <a href="#method">Method</a>
-        <a href="#proof">Results</a>
-        <a href="#feedback">Check-ins</a>
-        <a href="#offer">Pricing</a>
-      </nav>
-      <a class="nav-cta" href="#book-a-call">Book a Call</a>
-    </div>
+    <a class="nav-cta" href="#book-a-call">Book a Call</a>
+    <nav class="navlinks" aria-label="Sections">
+      <a href="#method">Method</a>
+      <a href="#proof">Results</a>
+      <a href="#feedback">Check-ins</a>
+      <a href="#offer">Features</a>
+    </nav>
   </div>
 </header>
 
@@ -789,7 +790,7 @@ footer {
     <p class="lead rise">Protein, steps, three sessions — run through a system that survives a real week. Built around your job, your travel and your life, not a plan that assumes you have none of them.</p>
     <div class="rise">
       <a class="btn" href="#book-a-call">Book Your Free Call</a><a class="btn-ghost" href="#proof">See Client Results</a>
-      <span class="reassure">Free 15-minute intro call. No pressure — we’ll talk through where you’re at and whether the Echelon Method is the right fit.</span>
+      <span class="reassure">Free 30-minute intro call. No pressure — we’ll talk through where you’re at and whether the Echelon Method is the right fit.</span>
     </div>
   </div>
 </section>
@@ -911,7 +912,7 @@ footer {
     <div class="proof-cta reveal">
       <p class="line">Results like these start with a <span class="hl">conversation</span>.</p>
       <a class="btn btn-big" href="#book-a-call">Book Your Free Call</a>
-      <span class="reassure">Free 15-minute intro call. No pressure, no hard sell.</span>
+      <span class="reassure">Free 30-minute intro call. No pressure, no hard sell.</span>
     </div>
   </div>
 </section>
@@ -1027,10 +1028,10 @@ footer {
       </ul>
       <div class="price-card">
         <span class="eyebrow">The Echelon Method</span>
-        <p class="price">£150 <small>/ month</small></p>
-        <p class="price-note">Three-month minimum — because real change takes longer than a fortnight, and I’d rather be honest about that here than surprise you later.</p>
+        <p class="card-line">Built around your job, your diary and your life.</p>
+        <p class="price-note">Everything listed here, run through one system. It starts with a free 30-minute call — no pressure, no hard sell.</p>
         <a class="btn" href="#book-a-call">Book Your Free Call</a>
-        <p class="honesty">It starts with a free 15-minute call. No pressure — we’ll talk through where you’re at and whether the method is the right fit before money enters the conversation.</p>
+        <p class="honesty">We’ll talk through where you’re at and whether the method is the right fit. That’s the whole agenda.</p>
       </div>
     </div>
   </div>
@@ -1050,9 +1051,9 @@ footer {
       <div>
         <span class="eyebrow">Book a call</span>
         <h2>Stop blaming your <span class="hl">willpower</span>. Start running a system.</h2>
-        <p class="lead">A free 15-minute intro call. No pressure — we’ll talk through where you’re at and whether the Echelon Method is the right fit.</p>
+        <p class="lead">A free 30-minute intro call. No pressure — we’ll talk through where you’re at and whether the Echelon Method is the right fit.</p>
         <ol class="call-steps">
-          <li><p>Fifteen minutes, relaxed. Just a conversation about where you’re at.</p></li>
+          <li><p>Thirty minutes, relaxed. Just a conversation about where you’re at.</p></li>
           <li><p>I’ll tell you honestly whether the Echelon Method fits your situation.</p></li>
           <li><p>If it fits, you’ll leave knowing what the next twelve weeks look like. If it doesn’t, you’ll still leave with a clear next step.</p></li>
         </ol>
