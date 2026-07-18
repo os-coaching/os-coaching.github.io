@@ -585,6 +585,26 @@ section[id], [id="book-a-call"] { scroll-margin-top: calc(var(--navh) + 0.5rem);
 .msg.out::before { right: -9px; border-top-color: var(--blue-press); border-left-color: var(--blue-press); }
 .msg.out .meta::after { content: " ✓✓"; letter-spacing: -0.08em; }
 
+/* ---------- meet the coach ---------- */
+.coach-grid { display: grid; gap: 3rem; align-items: start; }
+@media (min-width: 900px) { .coach-grid { grid-template-columns: 1.15fr 1fr; gap: 4.5rem; } }
+.coach-story p { color: var(--mist); }
+.coach-story p + p { margin-top: 1rem; }
+.coach-story .coach-quote {
+  margin-top: 2.25rem;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--paper);
+}
+.coach-figs { display: grid; gap: 1.9rem; align-content: start; }
+.coach-figs figure:nth-child(1) { max-width: 62%; }
+.coach-figs figure:nth-child(2) { max-width: 82%; justify-self: end; margin-top: -0.75rem; }
+.coach-figs img { width: 100%; height: auto; border-radius: 6px; display: block; }
+.coach-figs figcaption { margin-top: 0.7rem; font-size: 0.85rem; color: var(--mist); }
+
 /* ---------- objections ---------- */
 .objection {
   border-top: 1px solid var(--line);
@@ -775,7 +795,7 @@ footer {
     <nav class="navlinks" aria-label="Sections">
       <a href="#method">Method</a>
       <a href="#proof">Results</a>
-      <a href="#feedback">Check-ins</a>
+      <a href="#coach">Meet the Coach</a>
       <a href="#offer">Features</a>
     </nav>
   </div>
@@ -849,25 +869,26 @@ footer {
 
 <section class="tone" id="how">
   <div class="narrow reveal">
-    <span class="eyebrow">How it works</span>
-    <h2>Three steps. Then the system runs itself.</h2>
+    <span class="eyebrow">The three phases</span>
+    <h2>Habits. Build. Independence.</h2>
+    <p class="lead">Every client runs the same arc: get consistent, chase one goal properly, then learn to run the whole thing yourself.</p>
     <ol class="steps">
       <li>
         <div>
-          <h3>Map your real week</h3>
-          <p>An onboarding call and questionnaire covering your job, travel, training history and social life. We set your three non-negotiables around the life you actually have — not the one a template wishes you had.</p>
+          <h3>Habits</h3>
+          <p>The three non-negotiables go in first — protein, steps, three sessions — sized to your actual week. No overhaul, no banned foods, no starting Monday with fifteen new rules. We build the floor you can still hit on your worst week, because that floor is what everything else stands on.</p>
         </div>
       </li>
       <li>
         <div>
-          <h3>Your plan lands in the app</h3>
-          <p>Training, nutrition targets and weekly structure inside the Kahunas app. WhatsApp open seven days a week for anything that comes up in between.</p>
+          <h3>Build</h3>
+          <p>Once the habits hold, you pick the goal — a proper cut or a proper lean bulk — and we commit to it. Training progression and nutrition targets pointed at one outcome, adjusted weekly off your numbers. This is where the visible change happens.</p>
         </div>
       </li>
       <li>
         <div>
-          <h3>Check in, adjust, get independent</h3>
-          <p>Weekly reviews of the numbers. We remove friction and keep you consistent — until you can run the whole thing yourself.</p>
+          <h3>Independence</h3>
+          <p>The next block is your call — cut, build again, or hold. By now you understand the numbers and why everything is set the way it is, so my job shifts to checking your work rather than doing it for you. The method ends with you not needing it.</p>
         </div>
       </li>
     </ol>
@@ -917,63 +938,28 @@ footer {
   </div>
 </section>
 
-<section class="tone" id="feedback">
+<section class="tone" id="coach"><span id="feedback"></span>
   <div class="wrap reveal">
-    <span class="eyebrow">Client feedback</span>
-    <h2>Straight from the check-ins.</h2>
-    <p class="lead">The wins that matter aren’t scale screenshots. They’re weeks that used to fall apart — and didn’t.</p>
-    <div class="chat-grid">
-    <div class="chat reveal">
-      <div class="chat-head">
-        <img src="/assets/img/logo.webp" alt="" width="40" height="28">
-        <div>
-          <p class="chat-title">OS Coaching</p>
-          <p class="chat-sub">Client check-ins · WhatsApp, 7 days a week</p>
-        </div>
+    <div class="coach-grid">
+      <div class="coach-story">
+        <span class="eyebrow">Meet the coach</span>
+        <h2>I’ve been the before photo — twice.</h2>
+        <p>I was the skinny kid at school — proper rake. Then college happened, the eating caught up with me, and I went the other way. Hated that even more. So I got myself into a gym.</p>
+        <p>A bit of muscle showed up, I got a couple of compliments, and honestly thought I was massive. I was hooked. I wanted to be properly strong — so I went all in on powerlifting. Years of chasing bigger squats, benches and deadlifts, and it worked: I got genuinely strong. I also looked like I’d never seen a gym. Strong, but carrying it badly — nobody could tell I lifted.</p>
+        <p>So I switched to powerbuilding: keep every bit of the strength, build a physique that actually shows it. Seven years of training later, I’m in the best shape of my life.</p>
+        <p>Here’s the part that matters for you: I built all of it around full-time office jobs in financial services — insurance and mortgage broking, long hours, a commute. No training at 2pm because there was nothing else on. The Echelon Method exists because my progress had to fit around a working week. The same week you’re living now.</p>
+        <p class="coach-quote">Not a genetic freak. Not a full-time influencer. Just a system that survives a <span class="hl">real life</span> — mine first, then my clients’.</p>
       </div>
-      <div class="thread">
-        <span class="day">Monday</span>
-        <p class="msg in">Week from hell — two client dinners and a full day in Leeds. Still hit all three sessions. That has genuinely never happened before.<span class="meta">07:42</span></p>
-        <p class="msg out">That’s the system doing its job, not willpower. 80% done beats 100% abandoned.<span class="meta">07:48</span></p>
-        <span class="day">Tuesday</span>
-        <p class="msg in">Hotel gym was two dumbbells and a broken treadmill. Ran the backup session you sent instead. Done in 40 minutes.<span class="meta">07:15</span></p>
-        <p class="msg out">That’s the plan bending so it doesn’t break. Good week already.<span class="meta">07:31</span></p>
+      <div class="coach-figs">
+        <figure>
+          <img src="/assets/img/coach-1.webp" alt="Oliver as a skinny teenager at school, standing in a garden" width="470" height="870" decoding="async">
+          <figcaption>School — the skinny kid.</figcaption>
+        </figure>
+        <figure>
+          <img src="/assets/img/coach-2.webp" alt="Oliver Shaw now — lean and muscular after seven years of training" width="900" height="1160" decoding="async">
+          <figcaption>Now.</figcaption>
+        </figure>
       </div>
-    </div>
-    <div class="chat reveal">
-      <div class="chat-head">
-        <img src="/assets/img/logo.webp" alt="" width="40" height="28">
-        <div>
-          <p class="chat-title">OS Coaching</p>
-          <p class="chat-sub">Client check-ins · WhatsApp, 7 days a week</p>
-        </div>
-      </div>
-      <div class="thread">
-        <span class="day">Thursday</span>
-        <p class="msg in">Honestly thought the stag do would write the whole week off. Protein target still hit, walked it off Sunday.<span class="meta">18:03</span></p>
-        <p class="msg in">Down again at this morning’s weigh-in. Doesn’t feel like dieting any more, just feels like Tuesday.<span class="meta">18:04</span></p>
-        <p class="msg out">No zero days. Small levers, pulled every week — that’s the whole game.<span class="meta">18:11</span></p>
-        <span class="day">Friday</span>
-        <p class="msg in">Airport day. Cleared the steps floor before the gate — turns out Heathrow is decent cardio.<span class="meta">16:42</span></p>
-        <p class="msg in">First check-in ever that hasn’t felt like a confession.<span class="meta">16:44</span></p>
-      </div>
-    </div>
-    <div class="chat reveal">
-      <div class="chat-head">
-        <img src="/assets/img/logo.webp" alt="" width="40" height="28">
-        <div>
-          <p class="chat-title">OS Coaching</p>
-          <p class="chat-sub">Client check-ins · WhatsApp, 7 days a week</p>
-        </div>
-      </div>
-      <div class="thread">
-        <span class="day">Saturday</span>
-        <p class="msg in">Took my shirt off at the pool without thinking about it. First holiday in years I wasn’t planning around the photos.<span class="meta">11:26</span></p>
-        <span class="day">Sunday</span>
-        <p class="msg in">Meal out with the family, no menu anxiety. Logged it and moved on.<span class="meta">13:05</span></p>
-        <p class="msg out">No zero days doesn’t mean perfect days. That’s the whole point.<span class="meta">13:22</span></p>
-      </div>
-    </div>
     </div>
   </div>
 </section>
