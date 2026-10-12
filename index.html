@@ -701,6 +701,12 @@ section[id], [id="book-a-call"] { scroll-margin-top: calc(var(--navh) + 0.5rem);
   max-width: 50ch;
 }
 
+/* ---------- booking ---------- */
+.booking { padding-block: clamp(2.25rem, 5vw, 3.5rem) clamp(4.5rem, 11vw, 8.5rem); }
+.booking-head { margin-bottom: 1.75rem; }
+.booking-head .eyebrow { margin-bottom: 0.9rem; }
+.booking h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 0.6rem; }
+
 /* ---------- final ---------- */
 .final-grid {
   display: grid;
@@ -1040,7 +1046,7 @@ footer {
   </div>
 </section>
 
-<section class="final" id="book-a-call">
+<section class="final" id="call">
   <div class="wrap">
     <div class="final-grid reveal">
       <div>
@@ -1058,11 +1064,19 @@ footer {
         <figcaption>Oliver Shaw · Norfolk, UK · Coaching online, anywhere</figcaption>
       </figure>
     </div>
-    <div class="reveal">
-      <div class="calendly-inline-widget" data-url="https://calendly.com/ollieshawcoaching/30min" style="min-width:320px;height:700px;"></div>
-      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-      <span class="cal-fallback">Calendar not loading? <a href="https://calendly.com/ollieshawcoaching/30min" rel="noopener">Book directly on Calendly</a>.</span>
+  </div>
+</section>
+
+<section class="tone booking" id="book-a-call">
+  <div class="wrap">
+    <div class="booking-head">
+      <span class="eyebrow">Book your free call</span>
+      <h2>Pick a time that <span class="hl">suits you</span>.</h2>
+      <p class="lead">Free 30-minute intro call. Choose a slot below and it goes straight into my calendar.</p>
     </div>
+    <div class="calendly-inline-widget" data-url="https://calendly.com/ollieshawcoaching/30min" style="min-width:320px;height:700px;"></div>
+    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    <span class="cal-fallback">Calendar not loading? <a href="https://calendly.com/ollieshawcoaching/30min" rel="noopener">Book directly on Calendly</a>.</span>
   </div>
 </section>
 
@@ -1135,16 +1149,21 @@ footer {
 
   var bar = document.getElementById('bar');
   var hero = document.querySelector('.hero');
+  var booking = document.getElementById('book-a-call');
   if (bar && hero) {
+    var atBooking = false;
     var toggle = function () {
-      bar.classList.toggle('on', window.scrollY > hero.offsetTop + hero.offsetHeight - 80);
+      var pastHero = window.scrollY > hero.offsetTop + hero.offsetHeight - 80;
+      bar.classList.toggle('on', pastHero && !atBooking);
     };
-    if ('IntersectionObserver' in window) {
+    if (booking && 'IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {
-        bar.classList.toggle('on', !entries[0].isIntersecting);
-      }, { rootMargin: '-80px 0px 0px 0px' }).observe(hero);
+        atBooking = entries[0].isIntersecting;
+        toggle();
+      }, { rootMargin: '0px 0px -40% 0px' }).observe(booking);
     }
     window.addEventListener('scroll', toggle, { passive: true });
+    toggle();
   }
 })();
 </script>
