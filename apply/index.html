@@ -25,6 +25,7 @@
     --blue: #0A84FF;
     --blue-press: #0868C8;
     --blue-soft: rgba(10, 132, 255, 0.22);
+    --red: #FF453A;
     --display: "Cabinet Grotesk", "Arial Black", sans-serif;
     --body: "Switzer", -apple-system, "Segoe UI", sans-serif;
     --indent: 38px;
@@ -166,7 +167,7 @@
     font-size: 17px;
     transition: border-color 0.15s, box-shadow 0.15s;
   }
-  textarea { min-height: 112px; resize: vertical; }
+  textarea { min-height: 88px; resize: vertical; }
   ::placeholder { color: var(--faint); }
 
   input[type="text"]:focus,
@@ -207,14 +208,18 @@
   .err {
     margin: 10px 0 0 var(--indent);
     padding-left: 10px;
-    border-left: 3px solid var(--blue);
+    border-left: 3px solid var(--red);
+    color: var(--red);
     font-size: 15px;
     font-weight: 600;
   }
   .invalid input[type="text"],
   .invalid input[type="tel"],
   .invalid textarea,
-  .invalid .chip span { border-color: var(--paper); }
+  .invalid .chip span { border-color: var(--red); }
+
+  .hint { margin: 8px 0 0 var(--indent); font-size: 14px; color: var(--mist); }
+  .hint.found { color: var(--paper); }
 
   .hp { position: absolute; left: -9999px; }
 
@@ -334,8 +339,11 @@
       <div class="q" id="q-whatsapp">
         <label class="q-title" for="whatsapp"><span class="num">3</span>WhatsApp number</label>
         <div class="field">
-          <input type="tel" id="whatsapp" name="WhatsApp" autocomplete="tel" inputmode="tel" placeholder="07xxx xxxxxx">
+          <input type="tel" id="whatsapp" name="WhatsApp" autocomplete="tel" inputmode="tel" placeholder="07xxx xxxxxx or +353...">
         </div>
+        <input type="hidden" name="Phone country" id="phone_country" value="">
+        <input type="hidden" name="WhatsApp chat" id="wa_link" value="">
+        <p class="hint" id="phone-hint">Outside the UK? Start with your country code, like +353.</p>
         <p class="err" id="err-whatsapp" hidden></p>
       </div>
 
@@ -353,7 +361,7 @@
       <div class="q" id="q-blocker">
         <label class="q-title" for="blocker"><span class="num">5</span>What's got in the way when you've tried before?</label>
         <div class="field">
-          <textarea id="blocker" name="What's got in the way" placeholder="Work, nights out, losing motivation after a few weeks, whatever it is"></textarea>
+          <textarea id="blocker" name="What's got in the way" placeholder="Work, nights out, motivation... a word or two is fine"></textarea>
         </div>
         <p class="err" id="err-blocker" hidden></p>
       </div>
@@ -361,7 +369,7 @@
       <div class="q" id="q-why_now">
         <label class="q-title" for="why_now"><span class="num">6</span>Why sort it now rather than in 6 months?</label>
         <div class="field">
-          <textarea id="why_now" name="Why now" placeholder="Be honest, there's no wrong answer"></textarea>
+          <textarea id="why_now" name="Why now" placeholder="A holiday, an event, sick of it... a word or two is fine"></textarea>
         </div>
         <p class="err" id="err-why_now" hidden></p>
       </div>
@@ -431,15 +439,151 @@
     return v.replace(/^@+/, "").replace(/\/+$/, "");
   }
 
-  function normPhone(v) { return v.replace(/[\s\-().]/g, ""); }
 
+  // One word is enough, as long as it's a real one
   function answerCheck(raw) {
     const v = raw.trim();
-    if (!v) return "A sentence or two is plenty.";
-    const words = v.split(/\s+/).filter(function (w) { return /[a-z]{2,}/i.test(w); });
-    if (v.length < 10 || words.length < 2) return "Give me a bit more than that. A sentence is plenty.";
-    if (JUNK.includes(v.toLowerCase()) || isMash(v, 5)) return "Give me a real answer and you'll get a proper reply.";
+    if (!v) return "A word or two is fine.";
+    if (v.replace(/[^\p{L}]/gu, "").length < 3) return "Give me at least one proper word.";
+    if (JUNK.includes(v.toLowerCase().replace(/[.!?]+$/, "")) || isMash(v, 4)) return "Give me a real answer and you'll get a proper reply.";
     return "";
+  }
+
+  // ---------- Phone numbers: work out the country from the code ----------
+  // [calling code, ISO country, name, mobile pattern for the digits after the code (optional)]
+  const COUNTRIES = [
+    ["1", "US", "the US or Canada", /^[2-9]\d{2}[2-9]\d{6}$/],
+    ["7", "RU", "Russia or Kazakhstan", /^\d{10}$/],
+    ["20", "EG", "Egypt", /^1\d{9}$/],
+    ["27", "ZA", "South Africa", /^[6-8]\d{8}$/],
+    ["30", "GR", "Greece", /^69\d{8}$/],
+    ["31", "NL", "the Netherlands", /^6\d{8}$/],
+    ["32", "BE", "Belgium", /^4\d{8}$/],
+    ["33", "FR", "France", /^[67]\d{8}$/],
+    ["34", "ES", "Spain", /^[67]\d{8}$/],
+    ["36", "HU", "Hungary"],
+    ["39", "IT", "Italy", /^3\d{8,9}$/],
+    ["40", "RO", "Romania", /^7\d{8}$/],
+    ["41", "CH", "Switzerland", /^7[5-9]\d{7}$/],
+    ["43", "AT", "Austria", /^6\d{8,12}$/],
+    ["44", "GB", "the UK", /^7\d{9}$/],
+    ["45", "DK", "Denmark", /^\d{8}$/],
+    ["46", "SE", "Sweden", /^7\d{8}$/],
+    ["47", "NO", "Norway", /^[49]\d{7}$/],
+    ["48", "PL", "Poland", /^[4-8]\d{8}$/],
+    ["49", "DE", "Germany", /^1[5-7]\d{8,9}$/],
+    ["52", "MX", "Mexico", /^\d{10}$/],
+    ["54", "AR", "Argentina"],
+    ["55", "BR", "Brazil", /^\d{2}9\d{8}$/],
+    ["56", "CL", "Chile"],
+    ["57", "CO", "Colombia", /^3\d{9}$/],
+    ["60", "MY", "Malaysia"],
+    ["61", "AU", "Australia", /^4\d{8}$/],
+    ["62", "ID", "Indonesia"],
+    ["63", "PH", "the Philippines", /^9\d{9}$/],
+    ["64", "NZ", "New Zealand", /^2\d{7,9}$/],
+    ["65", "SG", "Singapore", /^[89]\d{7}$/],
+    ["66", "TH", "Thailand"],
+    ["81", "JP", "Japan"],
+    ["82", "KR", "South Korea"],
+    ["84", "VN", "Vietnam"],
+    ["86", "CN", "China", /^1\d{10}$/],
+    ["90", "TR", "Turkey", /^5\d{9}$/],
+    ["91", "IN", "India", /^[6-9]\d{9}$/],
+    ["92", "PK", "Pakistan", /^3\d{9}$/],
+    ["94", "LK", "Sri Lanka"],
+    ["212", "MA", "Morocco"],
+    ["213", "DZ", "Algeria"],
+    ["216", "TN", "Tunisia"],
+    ["233", "GH", "Ghana"],
+    ["234", "NG", "Nigeria", /^[789]\d{9}$/],
+    ["254", "KE", "Kenya"],
+    ["255", "TZ", "Tanzania"],
+    ["256", "UG", "Uganda"],
+    ["260", "ZM", "Zambia"],
+    ["263", "ZW", "Zimbabwe"],
+    ["350", "GI", "Gibraltar"],
+    ["351", "PT", "Portugal", /^9\d{8}$/],
+    ["352", "LU", "Luxembourg"],
+    ["353", "IE", "Ireland", /^8[3-9]\d{7}$/],
+    ["354", "IS", "Iceland"],
+    ["356", "MT", "Malta", /^[79]\d{7}$/],
+    ["357", "CY", "Cyprus", /^9\d{7}$/],
+    ["358", "FI", "Finland"],
+    ["359", "BG", "Bulgaria"],
+    ["370", "LT", "Lithuania"],
+    ["371", "LV", "Latvia"],
+    ["372", "EE", "Estonia"],
+    ["380", "UA", "Ukraine"],
+    ["381", "RS", "Serbia"],
+    ["385", "HR", "Croatia"],
+    ["386", "SI", "Slovenia"],
+    ["387", "BA", "Bosnia"],
+    ["420", "CZ", "Czechia"],
+    ["421", "SK", "Slovakia"],
+    ["852", "HK", "Hong Kong"],
+    ["880", "BD", "Bangladesh"],
+    ["886", "TW", "Taiwan"],
+    ["961", "LB", "Lebanon"],
+    ["962", "JO", "Jordan"],
+    ["965", "KW", "Kuwait"],
+    ["966", "SA", "Saudi Arabia", /^5\d{8}$/],
+    ["968", "OM", "Oman"],
+    ["971", "AE", "the UAE", /^5\d{8}$/],
+    ["972", "IL", "Israel", /^5\d{8}$/],
+    ["973", "BH", "Bahrain"],
+    ["974", "QA", "Qatar", /^[3-7]\d{7}$/]
+  ];
+
+  const UK = COUNTRIES.find(function (c) { return c[0] === "44"; });
+
+  function flag(iso) {
+    return String.fromCodePoint.apply(null, iso.split("").map(function (c) { return 127397 + c.charCodeAt(0); }));
+  }
+
+  // Turns whatever they typed into { e164, country, local } or { error }
+  function parsePhone(raw) {
+    let p = raw.replace(/\(0\)/g, "").replace(/[\s\-().]/g, "");
+    if (!p) return { empty: true };
+    if (/^00/.test(p)) p = "+" + p.slice(2);
+    if (!/^\+?\d+$/.test(p)) return { error: "Numbers only, please." };
+
+    // UK written the usual way: 07... (or 7... with the 0 missed off)
+    if (/^0/.test(p)) {
+      if (/^07\d{9}$/.test(p)) return { country: UK, local: p.slice(1) };
+      if (/^0\d+$/.test(p)) return { error: "That isn't a UK mobile. It should start 07 and have 11 digits. Outside the UK? Start with your country code, like +353." };
+    }
+    if (/^7\d{9}$/.test(p)) return { country: UK, local: p };
+
+    if (!/^\+/.test(p)) return { error: "Outside the UK? Add your country code with a + at the start, like +353." };
+
+    const digits = p.slice(1);
+    let match = null;
+    for (let len = 3; len >= 1 && !match; len--) {
+      const code = digits.slice(0, len);
+      match = COUNTRIES.find(function (c) { return c[0] === code; }) || null;
+    }
+    if (!match) return { partial: digits.length < 3, error: "I don't recognise that country code. Check the digits straight after the +." };
+    let local = digits.slice(match[0].length).replace(/^0/, "");
+    return { country: match, local: local };
+  }
+
+  function isFakeDigits(local) {
+    if (/(\d)\1{6,}/.test(local)) return true;
+    if (/(12345678|23456789|98765432|87654321|01234567|76543210)/.test(local)) return true;
+    return false;
+  }
+
+  function updatePhoneHint() {
+    const hint = $("phone-hint");
+    const res = parsePhone($("whatsapp").value);
+    if (res.country) {
+      hint.textContent = flag(res.country[1]) + " " + (res.country[1] === "GB" ? "UK number" : "Number from " + res.country[2] + " (+" + res.country[0] + ")");
+      hint.classList.add("found");
+    } else {
+      hint.textContent = "Outside the UK? Start with your country code, like +353.";
+      hint.classList.remove("found");
+    }
   }
 
   const checks = {
@@ -460,24 +604,15 @@
       return "";
     },
     whatsapp: function () {
-      const p = normPhone($("whatsapp").value);
-      if (!p) return "Add a number I can reach you on.";
-      let national = null;
-      if (/^(\+44|0044)/.test(p)) national = "0" + p.replace(/^(\+44|0044)/, "");
-      else if (/^0/.test(p)) national = p;
-      if (national !== null) {
-        if (!/^07\d{9}$/.test(national)) return "That isn't a UK mobile. It should start 07 and have 11 digits.";
-        const rest = national.slice(2);
-        if (/(\d)\1{6,}/.test(rest)) return "Use your real number.";
-        if (/(12345678|23456789|98765432|87654321|01234567|76543210)/.test(rest)) return "Use your real number.";
-        if (national.indexOf("07700900") === 0) return "Use your real number."; // Ofcom's range reserved for TV and film
-        return "";
-      }
-      if (/^\+\d{8,15}$/.test(p)) {
-        if (/(\d)\1{6,}/.test(p)) return "Use your real number.";
-        return "";
-      }
-      return "Use a UK mobile starting 07, or add your country code, like +353.";
+      const res = parsePhone($("whatsapp").value);
+      if (res.empty) return "Add a number I can reach you on.";
+      if (res.error) return res.error;
+      const c = res.country;
+      if (isFakeDigits(res.local)) return "Use your real number.";
+      if (c[1] === "GB" && ("0" + res.local).indexOf("07700900") === 0) return "Use your real number."; // Ofcom's range reserved for TV and film
+      if (c[3] && !c[3].test(res.local)) return "That doesn't look like a mobile number from " + c[2] + ". Check it and try again.";
+      if (!c[3] && (res.local.length < 6 || res.local.length > 13)) return "That number looks too " + (res.local.length < 6 ? "short" : "long") + ". Check it and try again.";
+      return "";
     },
     goal: function () { return radioValue("Main goal") ? "" : "Pick the closest one."; },
     blocker: function () { return answerCheck($("blocker").value); },
@@ -519,6 +654,7 @@
     if (e.target.id === "instagram" && e.target.value.indexOf("@") === 0) {
       e.target.value = e.target.value.replace(/^@+/, "");
     }
+    if (e.target.id === "whatsapp") updatePhoneHint();
     updateProgress();
     const f = fieldFor(e.target);
     if (f && !checks[f]()) setError(f, "");
@@ -575,6 +711,9 @@
     $("access_key").value = KEY;
     $("ig_handle").value = "@" + handle;
     $("ig_link").value = "https://instagram.com/" + handle;
+    const phone = parsePhone($("whatsapp").value);
+    $("phone_country").value = phone.country[1] === "GB" ? "UK" : phone.country[2].replace(/^the /, "");
+    $("wa_link").value = "https://wa.me/" + phone.country[0] + phone.local;
     $("subject").value = "New coaching application: " + $("name").value.trim() + " (" + radioValue("Start") + ")";
 
     // The browser now submits the form normally and Web3Forms sends them to the thank-you page
