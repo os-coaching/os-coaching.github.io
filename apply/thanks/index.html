@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Application sent | OS Coaching</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0B0C0E">
+<link rel="icon" href="/assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/CabinetGrotesk-Extrabold.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  @font-face { font-family: "Cabinet Grotesk"; src: url("/assets/fonts/CabinetGrotesk-Extrabold.woff2") format("woff2"); font-weight: 800; font-display: swap; }
+  @font-face { font-family: "Switzer"; src: url("/assets/fonts/Switzer-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+  @font-face { font-family: "Switzer"; src: url("/assets/fonts/Switzer-Semibold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+
+  :root {
+    --ink: #0B0C0E;
+    --coal: #141619;
+    --line: #26292E;
+    --paper: #F2F3F5;
+    --mist: #8E959E;
+    --faint: #5B626B;
+    --blue: #0A84FF;
+    --blue-press: #0868C8;
+    --display: "Cabinet Grotesk", "Arial Black", sans-serif;
+    --body: "Switzer", -apple-system, "Segoe UI", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 640px; margin: 0 auto; padding: 0 20px; }
+
+  .bar { position: fixed; inset: 0 0 auto 0; height: 3px; background: var(--blue); z-index: 20; }
+
+  .top {
+    display: flex;
+    justify-content: center;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .top img { display: block; height: 56px; width: auto; }
+
+  .hero {
+    padding: 64px 0 56px;
+    background:
+      linear-gradient(rgba(11, 12, 14, 0.35) 0%, rgba(11, 12, 14, 0.6) 55%, rgba(20, 22, 25, 0.97) 100%),
+      url("/assets/img/marble.webp?v=2") center / cover no-repeat, var(--ink);
+  }
+
+  .eyebrow {
+    margin: 0 0 18px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+
+  h1 {
+    margin: 0 0 22px;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(54px, 15vw, 92px);
+    line-height: 1.06;
+    letter-spacing: -0.015em;
+  }
+  h1 .l { display: block; }
+  .hl {
+    background: var(--blue);
+    padding: 0.02em 0.14em;
+    margin: 0 -0.1em 0 -0.04em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  .lede { margin: 0; max-width: 36ch; font-size: 18px; color: var(--mist); }
+
+  .next { flex: 1; background: var(--coal); padding: 32px 0 72px; }
+  .next .eyebrow { padding-top: 28px; border-top: 1px solid var(--line); margin-bottom: 24px; }
+
+  .steps { list-style: none; margin: 0 0 40px; padding: 0; display: grid; gap: 22px; }
+  .steps li { position: relative; padding-left: 38px; }
+  .steps .n {
+    position: absolute; left: 0; top: -2px;
+    font-family: var(--display); font-weight: 800; font-size: 26px; line-height: 1;
+    color: var(--blue);
+  }
+  .steps strong { display: block; font-weight: 600; font-size: 18px; margin-bottom: 2px; }
+  .steps p { margin: 0; color: var(--mist); font-size: 16px; }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-block;
+    padding: 15px 26px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 17px;
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .btn-primary { background: var(--blue); color: #fff; }
+  .btn-primary:hover { background: var(--blue-press); }
+  .btn-ghost { border: 1px solid var(--line); color: var(--paper); }
+  .btn-ghost:hover { border-color: var(--mist); }
+  .btn:focus-visible { outline: 3px solid var(--paper); outline-offset: 3px; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 28px 20px 40px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--faint);
+  }
+  footer a { color: var(--mist); text-decoration: none; }
+  footer a:hover { color: var(--paper); }
+
+  @media (min-width: 720px) {
+    .top img { height: 64px; }
+    .hero { padding: 88px 0 72px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bar" aria-hidden="true"></div>
+
+<header class="top">
+  <a href="/" aria-label="OS Coaching home"><img src="/assets/img/logo.webp" alt="OS Coaching" width="92" height="64"></a>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Application sent</p>
+    <h1><span class="l">Nice one.</span> <span class="l">It's <span class="hl">with me</span>.</span></h1>
+    <p class="lede">Cheers for applying. I'll go through your answers properly and get back to you within 24 hours.</p>
+  </div>
+</section>
+
+<section class="next">
+  <div class="wrap">
+    <p class="eyebrow">What happens next</p>
+    <ol class="steps">
+      <li>
+        <span class="n">1</span>
+        <strong>I read your answers</strong>
+        <p>Every application gets read by me, usually the same day.</p>
+      </li>
+      <li>
+        <span class="n">2</span>
+        <strong>I message you on Instagram</strong>
+        <p>If we don't follow each other yet, it'll land in your message requests, so check there.</p>
+      </li>
+      <li>
+        <span class="n">3</span>
+        <strong>We see if it's a fit</strong>
+        <p>If coaching makes sense for you, we'll set up a quick call and take it from there.</p>
+      </li>
+    </ol>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="https://instagram.com/ollieshawcoaching">Follow @ollieshawcoaching</a>
+      <a class="btn btn-ghost" href="/">Back to the site</a>
+    </div>
+  </div>
+</section>
+
+<footer>OS Coaching · <a href="/">os-coaching.github.io</a></footer>
+
+</body>
+</html>
