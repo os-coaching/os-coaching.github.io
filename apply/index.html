@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Apply for coaching | OS Coaching</title>
-<meta name="description" content="Apply for 1:1 online fat loss coaching with Oliver Shaw. Seven questions, about two minutes.">
+<meta name="description" content="Apply for 1:1 online fat loss coaching with Oliver Shaw. Nine questions, about two minutes.">
 <meta name="theme-color" content="#0B0C0E">
 <link rel="icon" href="/assets/img/favicon-32.png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
@@ -156,6 +156,7 @@
 
   input[type="text"],
   input[type="tel"],
+  input[type="email"],
   textarea {
     width: 100%;
     padding: 14px 16px;
@@ -172,6 +173,7 @@
 
   input[type="text"]:focus,
   input[type="tel"]:focus,
+  input[type="email"]:focus,
   textarea:focus {
     outline: none;
     border-color: var(--blue);
@@ -215,6 +217,7 @@
   }
   .invalid input[type="text"],
   .invalid input[type="tel"],
+  .invalid input[type="email"],
   .invalid textarea,
   .invalid .chip span { border-color: var(--red); }
 
@@ -269,7 +272,7 @@
 </head>
 <body>
 
-<div class="progress" role="progressbar" aria-label="Application progress" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0"><span></span></div>
+<div class="progress" role="progressbar" aria-label="Application progress" aria-valuemin="0" aria-valuemax="9" aria-valuenow="0"><span></span></div>
 
 <header class="top">
   <a href="/" aria-label="OS Coaching home"><img src="/assets/img/logo.webp" alt="OS Coaching" width="92" height="64"></a>
@@ -279,7 +282,7 @@
   <div class="wrap">
     <p class="eyebrow">The Echelon Method · Application</p>
     <h1><span class="l">Apply for</span> <span class="l"><span class="hl">coaching</span>.</span></h1>
-    <p class="lede">Seven quick questions, about two minutes. Your answers come straight to me and I reply to every one personally.</p>
+    <p class="lede">Nine quick questions, about two minutes. Your answers come straight to me and I reply to every one personally.</p>
     <div class="coach">
       <img src="/assets/img/oliver.webp?v=4" alt="Oliver Shaw" width="52" height="52">
       <p><strong>Oliver Shaw</strong><br>Read by me, not a sales team</p>
@@ -347,8 +350,17 @@
         <p class="err" id="err-whatsapp" hidden></p>
       </div>
 
+      <div class="q" id="q-email">
+        <label class="q-title" for="email"><span class="num">4</span>Email address</label>
+        <div class="field">
+          <input type="email" id="email" name="email" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" placeholder="you@example.com">
+        </div>
+        <p class="hint">So I can send you the call invite.</p>
+        <p class="err" id="err-email" hidden></p>
+      </div>
+
       <fieldset class="q" id="q-goal">
-        <legend class="q-title"><span class="num">4</span>What's your main goal right now?</legend>
+        <legend class="q-title"><span class="num">5</span>What's your main goal right now?</legend>
         <div class="field chips">
           <label class="chip"><input type="radio" name="Main goal" value="Lose fat"><span>Lose fat</span></label>
           <label class="chip"><input type="radio" name="Main goal" value="Build muscle"><span>Build muscle</span></label>
@@ -359,7 +371,7 @@
       </fieldset>
 
       <div class="q" id="q-blocker">
-        <label class="q-title" for="blocker"><span class="num">5</span>What's got in the way when you've tried before?</label>
+        <label class="q-title" for="blocker"><span class="num">6</span>What's got in the way when you've tried before?</label>
         <div class="field">
           <textarea id="blocker" name="What's got in the way" placeholder="Work, nights out, motivation... a word or two is fine"></textarea>
         </div>
@@ -367,7 +379,7 @@
       </div>
 
       <div class="q" id="q-why_now">
-        <label class="q-title" for="why_now"><span class="num">6</span>Why sort it now rather than in 6 months?</label>
+        <label class="q-title" for="why_now"><span class="num">7</span>Why sort it now rather than in 6 months?</label>
         <div class="field">
           <textarea id="why_now" name="Why now" placeholder="A holiday, an event, sick of it... a word or two is fine"></textarea>
         </div>
@@ -375,7 +387,7 @@
       </div>
 
       <fieldset class="q" id="q-start">
-        <legend class="q-title"><span class="num">7</span>How soon do you want to start?</legend>
+        <legend class="q-title"><span class="num">8</span>How soon do you want to start?</legend>
         <div class="field chips">
           <label class="chip"><input type="radio" name="Start" value="ASAP"><span>ASAP</span></label>
           <label class="chip"><input type="radio" name="Start" value="Within a month"><span>Within a month</span></label>
@@ -384,11 +396,26 @@
         <p class="err" id="err-start" hidden></p>
       </fieldset>
 
+      <fieldset class="q" id="q-times">
+        <legend class="q-title"><span class="num">9</span>When are you usually free for a call?</legend>
+        <div class="field chips">
+          <label class="chip"><input type="checkbox" class="time-opt" value="Weekday mornings"><span>Weekday mornings</span></label>
+          <label class="chip"><input type="checkbox" class="time-opt" value="Weekday lunchtimes"><span>Weekday lunchtimes</span></label>
+          <label class="chip"><input type="checkbox" class="time-opt" value="Weekday afternoons"><span>Weekday afternoons</span></label>
+          <label class="chip"><input type="checkbox" class="time-opt" value="Weekday evenings"><span>Weekday evenings</span></label>
+          <label class="chip"><input type="checkbox" class="time-opt" value="Weekends"><span>Weekends</span></label>
+          <label class="chip"><input type="checkbox" class="time-opt" value="I work shifts, it changes"><span>I work shifts, it changes</span></label>
+        </div>
+        <input type="hidden" name="Best times for a call" id="call_times" value="">
+        <p class="hint">Pick as many as you like.</p>
+        <p class="err" id="err-times" hidden></p>
+      </fieldset>
+
       <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 
       <div>
         <button type="submit" class="submit" id="submit">Send my application</button>
-        <p class="note">I'll message you on Instagram within 24 hours.</p>
+        <p class="note">I'll be in touch within 24 hours to book your call.</p>
       </div>
 
       <p class="status" id="status" role="alert"></p>
@@ -447,6 +474,44 @@
     if (v.replace(/[^\p{L}]/gu, "").length < 3) return "Give me at least one proper word.";
     if (JUNK.includes(v.toLowerCase().replace(/[.!?]+$/, "")) || isMash(v, 4)) return "Give me a real answer and you'll get a proper reply.";
     return "";
+  }
+
+  // ---------- Email: catch typos and throwaway addresses ----------
+  // Common misspellings of the big providers, mapped to what they meant
+  const EMAIL_TYPOS = {
+    "gmial.com": "gmail.com", "gmal.com": "gmail.com", "gamil.com": "gmail.com", "gmaill.com": "gmail.com",
+    "gmail.co": "gmail.com", "gmail.con": "gmail.com", "gmail.cm": "gmail.com", "gmail.om": "gmail.com",
+    "gnail.com": "gmail.com", "gmali.com": "gmail.com", "gmail.co.uk": "gmail.com", "googlemail.co": "googlemail.com",
+    "hotmial.com": "hotmail.com", "hotmal.com": "hotmail.com", "hotmai.com": "hotmail.com", "homtail.com": "hotmail.com",
+    "hotmail.con": "hotmail.com", "hotmail.co": "hotmail.co.uk", "hotmail.uk": "hotmail.co.uk", "hotmial.co.uk": "hotmail.co.uk",
+    "outlok.com": "outlook.com", "outllok.com": "outlook.com", "outlook.co": "outlook.com", "outlook.con": "outlook.com",
+    "yaho.com": "yahoo.com", "yahooo.com": "yahoo.com", "yahoo.con": "yahoo.com", "yahoo.co": "yahoo.co.uk", "yahoo.uk": "yahoo.co.uk",
+    "icloud.co": "icloud.com", "icoud.com": "icloud.com", "iclod.com": "icloud.com", "icloud.con": "icloud.com",
+    "btinternet.co": "btinternet.com", "btinternet.con": "btinternet.com", "btinterent.com": "btinternet.com",
+    "live.co": "live.co.uk", "live.con": "live.com", "sky.con": "sky.com", "aol.con": "aol.com"
+  };
+  const EMAIL_BLOCKED = ["example.com", "example.co.uk", "example.org", "test.com", "fake.com", "email.co",
+    "mailinator.com", "guerrillamail.com", "10minutemail.com", "yopmail.com", "tempmail.com", "temp-mail.org",
+    "trashmail.com", "sharklasers.com", "getnada.com", "dispostable.com", "maildrop.cc", "throwawaymail.com"];
+
+  function emailCheck(raw) {
+    const v = raw.trim().toLowerCase();
+    if (!v) return "Add an email so I can send you the call invite.";
+    if (/\s/.test(v)) return "No spaces in an email address.";
+    const at = v.lastIndexOf("@");
+    if (at < 1) return "That's missing the @. It should look like name@gmail.com.";
+    const local = v.slice(0, at);
+    const domain = v.slice(at + 1);
+    if (!/^[a-z0-9.!#$%&'*+\/=?^_`{|}~-]+$/.test(local) || /^\.|\.$|\.\./.test(local)) return "Check the bit before the @.";
+    if (!/^([a-z0-9-]+\.)+[a-z]{2,}$/.test(domain) || /(^|\.)-|-(\.|$)/.test(domain)) return "Check the bit after the @. It should look like gmail.com.";
+    if (EMAIL_TYPOS[domain]) return "Did you mean " + local + "@" + EMAIL_TYPOS[domain] + "? Check the spelling after the @.";
+    if (EMAIL_BLOCKED.includes(domain)) return "Use an email you actually check.";
+    if (["you", "your", "youremail", "email", "name", "yourname"].concat(JUNK).includes(local) || isMash(local, 4)) return "Use your real email address.";
+    return "";
+  }
+
+  function chosenTimes() {
+    return Array.prototype.map.call(form.querySelectorAll(".time-opt:checked"), function (b) { return b.value; });
   }
 
   // ---------- Phone numbers: work out the country from the code ----------
@@ -614,6 +679,7 @@
       if (!c[3] && (res.local.length < 6 || res.local.length > 13)) return "That number looks too " + (res.local.length < 6 ? "short" : "long") + ". Check it and try again.";
       return "";
     },
+    email: function () { return emailCheck($("email").value); },
     goal: function () { return radioValue("Main goal") ? "" : "Pick the closest one."; },
     blocker: function () { return answerCheck($("blocker").value); },
     why_now: function () {
@@ -621,10 +687,11 @@
       if (msg) return msg;
       const a = $("blocker").value.trim().toLowerCase();
       const b = $("why_now").value.trim().toLowerCase();
-      if (a && a === b) return "That's the same answer as question 5. What's making now the time?";
+      if (a && a === b) return "That's the same answer as question 6. What's making now the time?";
       return "";
     },
-    start: function () { return radioValue("Start") ? "" : "Pick one."; }
+    start: function () { return radioValue("Start") ? "" : "Pick one."; },
+    times: function () { return chosenTimes().length ? "" : "Pick at least one so I can find a time that works."; }
   };
 
   const fields = Object.keys(checks);
@@ -647,6 +714,7 @@
     if (target.id && checks[target.id]) return target.id;
     if (target.name === "Main goal") return "goal";
     if (target.name === "Start") return "start";
+    if (target.classList && target.classList.contains("time-opt")) return "times";
     return null;
   }
 
@@ -669,8 +737,9 @@
   // Check each typed answer when the person moves on, so mistakes show early
   form.addEventListener("focusout", function (e) {
     const f = fieldFor(e.target);
-    if (!f || e.target.type === "radio") return;
+    if (!f || e.target.type === "radio" || e.target.type === "checkbox") return;
     if (f === "instagram" && e.target.value) e.target.value = cleanHandle(e.target.value);
+    if (f === "email" && e.target.value) e.target.value = e.target.value.trim().toLowerCase();
     if (e.target.value.trim()) setError(f, checks[f]());
   });
 
@@ -714,6 +783,8 @@
     const phone = parsePhone($("whatsapp").value);
     $("phone_country").value = phone.country[1] === "GB" ? "UK" : phone.country[2].replace(/^the /, "");
     $("wa_link").value = "https://wa.me/" + phone.country[0] + phone.local;
+    $("email").value = $("email").value.trim().toLowerCase();
+    $("call_times").value = chosenTimes().join(", ");
     $("subject").value = "New coaching application: " + $("name").value.trim() + " (" + radioValue("Start") + ")";
 
     // The browser now submits the form normally and Web3Forms sends them to the thank-you page
